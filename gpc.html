@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+<script>
+  (function() {
+    var session = null;
+    try { session = JSON.parse(sessionStorage.getItem('r2_session')); } catch(e) {}
+    if (!session || !session.login) {
+      window.location.replace('index.html');
+    }
+  })();
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dashboard GPC - versão beta</title>
