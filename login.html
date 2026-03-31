@@ -967,6 +967,12 @@ function doLogin() {
   }
 
   if (found.isAdmin || found.redirect === '__admin__') {
+    // Gravar sessão admin
+    sessionStorage.setItem('r2_session', JSON.stringify({
+      login: found.login,
+      redirect: '__admin__',
+      ts: Date.now()
+    }));
     // Open admin panel
     document.getElementById('login-screen').style.display = 'none';
     document.getElementById('admin-panel').style.display = 'block';
@@ -974,7 +980,12 @@ function doLogin() {
     return;
   }
 
-  // Redirect
+  // Gravar sessão e redirecionar
+  sessionStorage.setItem('r2_session', JSON.stringify({
+    login: found.login,
+    redirect: found.redirect,
+    ts: Date.now()
+  }));
   window.location.href = found.redirect;
 }
 
@@ -1003,6 +1014,7 @@ document.head.appendChild(style);
 //  ADMIN PANEL
 // ============================================================
 function doLogout() {
+  sessionStorage.removeItem('r2_session');
   document.getElementById('admin-panel').style.display = 'none';
   document.getElementById('login-screen').style.display = 'flex';
   // If not remembered, clear fields
